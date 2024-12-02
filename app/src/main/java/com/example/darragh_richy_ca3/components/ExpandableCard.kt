@@ -111,12 +111,20 @@ fun ExpandableCard(
                 text = cardItem.title,
             )
 
+            // Description
+            if (isExpanded) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Plant stats go here",
+                )
+            }
+
             Spacer(modifier = Modifier.height(8.dp))
 
 
             Button(
                 onClick = {
-                    backgroundColor = if (backgroundColor == Color.White) Color.Green else Color.White
+                    backgroundColor = if (backgroundColor == Color.White) Color.Gray else Color.White
                     onButtonClick(cardItem.id)
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -125,7 +133,7 @@ fun ExpandableCard(
                 ),
                 modifier = Modifier.align(Alignment.End)
             ) {
-                Text(text = "Check Status")
+                Text(text = "Change Colour")
             }
         }
     }
