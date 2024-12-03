@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.darragh_richy_ca3.components.ExpandableCardListScreen
-import com.example.darragh_richy_ca3.ui.theme.Darragh_Richy_CA3Theme
+import com.example.darragh_richy_ca3.ui.theme.Darragh_Richy_CA3Them
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
