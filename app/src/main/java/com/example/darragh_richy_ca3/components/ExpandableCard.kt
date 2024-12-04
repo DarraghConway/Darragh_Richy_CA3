@@ -18,13 +18,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.platform.LocalContext
 import coil.imageLoader
 import com.example.darragh_richy_ca3.model.CardItem
 import com.example.darragh_richy_ca3.R
 import com.example.darragh_richy_ca3.data.DataSource
-
 
 @Composable
 fun ExpandableCardList(cardItems: List<CardItem>) {
@@ -34,6 +32,7 @@ fun ExpandableCardList(cardItems: List<CardItem>) {
         items(cardItems) { cardItem ->
             // Check if specific card is expanded
             val isExpanded = expandedCardIds.value[cardItem.id] ?: false
+
             Log.d("ExpandableCardList", "Rendering card with ID: ${cardItem.id}, isExpanded: $isExpanded")
 
             ExpandableCard(
@@ -41,7 +40,7 @@ fun ExpandableCardList(cardItems: List<CardItem>) {
                 isExpanded = isExpanded,
                 onExpandToggle = { expanded ->
                     expandedCardIds.value = expandedCardIds.value.toMutableMap().apply {
-                        //Close other cards that are expanded
+                        // Close other cards that are expanded
                         keys.forEach { key -> put(key, false) }
                         put(cardItem.id, expanded)
                     }
@@ -82,7 +81,7 @@ fun ExpandableCard(
                 }
                 .padding(16.dp)
         ) {
-            //Image
+            // Image
             AsyncImage(
                 model = cardItem.imageUrl,
                 contentDescription = "${cardItem.title} Image",
@@ -120,7 +119,6 @@ fun ExpandableCard(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
 
             Button(
                 onClick = {
