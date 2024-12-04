@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
 fun MainScreen(uiState: UiState) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
