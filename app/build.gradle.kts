@@ -59,17 +59,35 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation (libs.ui)
-    implementation (libs.material3)
-    implementation (libs.androidx.animation)
-    implementation (libs.ui.tooling.preview)
-    implementation (libs.androidx.activity.compose.v131)
+    implementation(libs.ui)
+    implementation(libs.material3)
+
+    // Retrofit for network requests
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Add lifecycle-viewmodel-compose for ViewModel support in Jetpack Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Jetpack Compose Animation and Preview
+    implementation(libs.androidx.animation)
+    implementation(libs.ui.tooling.preview)
+
+    // Activity Compose v1.3.1 (Double-check, might conflict with libs.androidx.activity.compose)
+    implementation(libs.androidx.activity.compose.v131)
+
+    // Lifecycle and LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.runtime.livedata)
+
+    // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debugging dependencies
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 }
