@@ -1,11 +1,13 @@
-// ApiService.kt
 package com.example.darragh_richy_ca3.network
 
-import com.example.darragh_richy_ca3.model.CardItem
+import com.example.darragh_richy_ca3.model.ApiResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET("api/v1/plant/search")
-    fun getData(): Call<List<CardItem>>
+    @GET("plants")
+    fun getPlants(
+        @Query("token") token: String
+    ): Call<ApiResponse> // Return ApiResponse instead of List<CardItem>
 }

@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation (libs.androidx.lifecycle.viewmodel.compose) // Ensure this is included
+    implementation (libs.androidx.lifecycle.runtime.ktx.v260)
     implementation(libs.androidx.animation.v151)
     implementation(libs.coil.compose)
     implementation(libs.androidx.core.ktx)
@@ -64,11 +66,11 @@ dependencies {
     implementation(libs.material3)
 
     // Retrofit for network requests
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Add lifecycle-viewmodel-compose for ViewModel support in Jetpack Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v262)
 
     // Jetpack Compose Animation and Preview
     implementation(libs.androidx.animation)

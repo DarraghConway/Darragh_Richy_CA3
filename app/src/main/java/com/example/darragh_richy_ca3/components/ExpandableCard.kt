@@ -1,28 +1,29 @@
 package com.example.darragh_richy_ca3.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.ui.Modifier
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.ui.unit.dp
 import android.util.Log
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
-import coil.compose.AsyncImagePainter
-import coil.compose.AsyncImage
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import coil.imageLoader
 import com.example.darragh_richy_ca3.model.CardItem
-import com.example.darragh_richy_ca3.R
-import com.example.darragh_richy_ca3.data.DataSource
+import com.example.darragh_richy_ca3.viewmodel.MainViewModel
+import com.example.darragh_richy_ca3.viewmodel.UiState
 
 @Composable
 fun ExpandableCardList(cardItems: List<CardItem>) {
@@ -83,8 +84,8 @@ fun ExpandableCard(
         ) {
             // Image
             AsyncImage(
-                model = cardItem.imageUrl,
-                contentDescription = "${cardItem.title} Image",
+                model = cardItem.image_url,
+                contentDescription = "${cardItem.common_name} Image",
                 modifier = Modifier
                     .height(150.dp)
                     .fillMaxWidth()
@@ -105,12 +106,17 @@ fun ExpandableCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Title
+            // Common Name
             Text(
-                text = cardItem.title,
+                text = cardItem.common_name ?: "No common name available", // Handle nullability
             )
 
-            // Description
+            // Scientific Name
+            Text(
+                text = cardItem.scientific_name,
+            )
+
+            // Description (Expanded state)
             if (isExpanded) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -137,9 +143,5 @@ fun ExpandableCard(
     }
 }
 
-@Composable
-fun ExpandableCardListScreen() {
-    val cardItems = DataSource.getCardItems()
-    Log.d("ExpandableCardListScreen", "Fetched ${cardItems.size} card items.")
-    ExpandableCardList(cardItems = cardItems)
-}
+
+

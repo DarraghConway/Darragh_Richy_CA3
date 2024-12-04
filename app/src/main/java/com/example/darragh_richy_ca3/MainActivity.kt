@@ -3,7 +3,6 @@ package com.example.darragh_richy_ca3
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -15,17 +14,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.darragh_richy_ca3.components.ExpandableCardList
 import com.example.darragh_richy_ca3.model.CardItem
+import com.example.darragh_richy_ca3.repository.Repository
 import com.example.darragh_richy_ca3.ui.theme.Darragh_Richy_CA3Theme
+import com.example.darragh_richy_ca3.viewmodel.MainViewModel
+import com.example.darragh_richy_ca3.viewmodel.MainViewModelFactory
+import com.example.darragh_richy_ca3.viewmodel.UiState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Darragh_Richy_CA3Theme {
-                val viewModel: MainViewModel = viewModel()
+                val repository = Repository() // Initialize Repository
+                val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(repository)) // Use custom factory
                 val uiState by viewModel.uiState.observeAsState(initial = UiState(isLoading = true))
 
                 MainScreen(uiState = uiState)
@@ -58,8 +61,18 @@ fun PreviewMainScreen() {
             uiState = UiState(
                 isLoading = false,
                 data = listOf(
-                    CardItem(id = 1, title = "Plant 1", imageUrl = "https://example.com/plant1.jpg"),
-                    CardItem(id = 2, title = "Plant 2", imageUrl = "https://example.com/plant2.jpg")
+                    CardItem(
+                        id = 1,
+                        common_name = "Plant 1",
+                        scientific_name = "Scientific Name 1",
+                        image_url = "https://example.com/plant1.jpg"
+                    ),
+                    CardItem(
+                        id = 2,
+                        common_name = "Plant 2",
+                        scientific_name = "Scientific Name 2",
+                        image_url = "https://example.com/plant2.jpg"
+                    )
                 ),
                 error = null
             )
