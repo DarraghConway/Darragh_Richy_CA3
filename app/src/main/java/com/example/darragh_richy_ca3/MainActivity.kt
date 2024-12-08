@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.darragh_richy_ca3.components.ExpandableCardList
+import com.example.darragh_richy_ca3.components.ResponsiveCardList
 import com.example.darragh_richy_ca3.model.CardItem
 import com.example.darragh_richy_ca3.repository.Repository
 import com.example.darragh_richy_ca3.ui.theme.Darragh_Richy_CA3Theme
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Darragh_Richy_CA3Theme {
-                val repository = Repository() // Initialize Repository
+                val repository = Repository()
                 val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(repository)) // Use custom factory
                 val uiState by viewModel.uiState.observeAsState(initial = UiState(isLoading = true))
 
@@ -36,19 +36,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun MainScreen(uiState: UiState) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
-            uiState.isLoading -> {
-                CircularProgressIndicator()
-            }
-            uiState.error != null -> {
-                Text(text = "Error: ${uiState.error}")
-            }
-            else -> {
-                ExpandableCardList(cardItems = uiState.data)
-            }
+            uiState.isLoading -> CircularProgressIndicator()
+            uiState.error != null -> Text(text = "Error: ${uiState.error}")
+            else -> ResponsiveCardList(cardItems = uiState.data)
         }
     }
 }

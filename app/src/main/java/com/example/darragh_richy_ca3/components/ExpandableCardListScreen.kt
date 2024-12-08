@@ -1,3 +1,4 @@
+
 package com.example.darragh_richy_ca3.ui
 
 import androidx.compose.foundation.layout.Box
@@ -15,7 +16,7 @@ import com.example.darragh_richy_ca3.repository.Repository
 import com.example.darragh_richy_ca3.viewmodel.MainViewModel
 import com.example.darragh_richy_ca3.viewmodel.MainViewModelFactory
 import com.example.darragh_richy_ca3.viewmodel.UiState
-import com.example.darragh_richy_ca3.components.ExpandableCardList
+import com.example.darragh_richy_ca3.components.ResponsiveCardList
 
 @Composable
 fun ExpandableCardListScreen() {
@@ -39,6 +40,6 @@ fun ExpandableCardListScreen() {
             Text(text = "Error: ${uiState.error}")
         }
     } else {
-        ExpandableCardList(cardItems = uiState.data)
+        ResponsiveCardList(cardItems = uiState.data)
     }
 }
