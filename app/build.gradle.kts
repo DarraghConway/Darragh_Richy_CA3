@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.material3)
 
+
     // Retrofit for network requests
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -82,6 +83,9 @@ dependencies {
     // Lifecycle and LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.runtime.livedata)
+
+    // Jetpack Navigation Compose
+    implementation (libs.androidx.navigation.compose)
 
     // Testing dependencies
     testImplementation(libs.junit)

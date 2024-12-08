@@ -14,6 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.darragh_richy_ca3.components.ResponsiveCardList
 import com.example.darragh_richy_ca3.model.CardItem
 import com.example.darragh_richy_ca3.repository.Repository
@@ -31,28 +35,34 @@ class MainActivity : ComponentActivity() {
                 val viewModel: MainViewModel = viewModel(factory = MainViewModelFactory(repository)) // Use custom factory
                 val uiState by viewModel.uiState.observeAsState(initial = UiState(isLoading = true))
 
-                MainScreen(uiState = uiState)
+                val navController = rememberNavController()
+                NavGraph(navController = navController, uiState = uiState)
             }
         }
     }
 }
 
+
 @Composable
-fun MainScreen(uiState: UiState) {
+fun MainScreen(navController: NavHostController, uiState: UiState) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when {
-            uiState.isLoading -> CircularProgressIndicator()
+            uiState.isLoading -> LoadingScreen()
             uiState.error != null -> Text(text = "Error: ${uiState.error}")
-            else -> ResponsiveCardList(cardItems = uiState.data)
+            else -> ResponsiveCardList(cardItems = uiState.data, onItemClick = { cardItem ->
+                navController.navigate("details/${cardItem.id}")
+            })
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
     Darragh_Richy_CA3Theme {
         MainScreen(
+            navController = rememberNavController(),
             uiState = UiState(
                 isLoading = false,
                 data = listOf(

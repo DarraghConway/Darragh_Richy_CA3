@@ -9,24 +9,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.Alignment
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.imageLoader
 import com.example.darragh_richy_ca3.model.CardItem
-import com.example.darragh_richy_ca3.viewmodel.MainViewModel
-import com.example.darragh_richy_ca3.viewmodel.UiState
 
 @Composable
-fun ExpandableCardList(cardItems: List<CardItem>) {
+fun ExpandableCardList(cardItems: List<CardItem>, onItemClick: (CardItem) -> Unit) {
     val expandedCardIds = remember { mutableStateOf(mutableMapOf<Int, Boolean>()) }
 
     LazyColumn {
@@ -49,7 +45,8 @@ fun ExpandableCardList(cardItems: List<CardItem>) {
                 },
                 onButtonClick = { cardId ->
                     Log.d("ExpandableCard", "Button clicked for card ID: $cardId")
-                }
+                },
+                onClick = { onItemClick(cardItem) }
             )
         }
     }
@@ -60,7 +57,8 @@ fun ExpandableCard(
     cardItem: CardItem,
     isExpanded: Boolean,
     onExpandToggle: (Boolean) -> Unit,
-    onButtonClick: (Int) -> Unit
+    onButtonClick: (Int) -> Unit,
+    onClick: () -> Unit
 ) {
     var backgroundColor by remember { mutableStateOf(Color.White) }
 
@@ -68,7 +66,8 @@ fun ExpandableCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .animateContentSize(),
+            .animateContentSize()
+            .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor) // Apply the background color
@@ -76,10 +75,6 @@ fun ExpandableCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    Log.d("ExpandableCard", "Card clicked with ID: ${cardItem.id}, current expanded state: $isExpanded")
-                    onExpandToggle(!isExpanded)
-                }
                 .padding(16.dp)
         ) {
             // Image
@@ -142,6 +137,3 @@ fun ExpandableCard(
         }
     }
 }
-
-
-

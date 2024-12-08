@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.example.darragh_richy_ca3.model.CardItem
 
 @Composable
-fun ResponsiveCardList(cardItems: List<CardItem>) {
+fun ResponsiveCardList(cardItems: List<CardItem>, onItemClick: (CardItem) -> Unit) {
     BoxWithConstraints {
         val screenWidth = maxWidth
         if (screenWidth < 600.dp) {
@@ -20,7 +20,8 @@ fun ResponsiveCardList(cardItems: List<CardItem>) {
                         cardItem = cardItem,
                         isExpanded = false,
                         onExpandToggle = { },
-                        onButtonClick = { }
+                        onButtonClick = { },
+                        onClick = { onItemClick(cardItem) }
                     )
                 }
             }
@@ -31,10 +32,13 @@ fun ResponsiveCardList(cardItems: List<CardItem>) {
                         cardItem = cardItem,
                         isExpanded = false,
                         onExpandToggle = { },
-                        onButtonClick = {  }
+                        onButtonClick = { },
+                        onClick = { onItemClick(cardItem) }
                     )
                 }
             }
         }
     }
 }
+
+
